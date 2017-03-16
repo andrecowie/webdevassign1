@@ -20,8 +20,5 @@ student’s work or from any other source.
     <a href="./poststatusform.php">Post a status</a>
     <a href="./searchstatusform.php">Search status</a>
     <a href="./about.php">About this assignment</a>
-    <?php
-    echo "<p>Andre you dog</p>";
-    ?>
   </body>
 </html>
