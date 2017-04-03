@@ -18,7 +18,7 @@
       <input type="radio" name="share" value="onlyme" id="onlyme">Only Me
       <br />
       <label for="date">Date: </label>
-      <?php echo "<input type=\"date\" name=\"date\" id=\"date\" value=\"".date('d/m/y')."\"></input>"?>
+      <?php echo "<input type=\"date\" pattern=\"(0[1-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}\" name=\"date\" id=\"date\" value=\"".date('d/m/Y')."\"></input>"?>
       <br />
       <label for="permissions">Permissions Type: </label>
       <input type="checkbox" name="permissions[]" value="like" >Like
