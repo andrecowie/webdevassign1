@@ -28,6 +28,17 @@
       <button type="submit">Submit</button>
       <button type="button">Reset</button>
     </form>
+<?php
+$error_id = isset( $_GET[ 'err' ]) ? (int)$_GET['err'] : 0;
+if ($error_id == 1)
+{
+	echo "<p style=\"color: red;\" >It seems that status code is already in use try another!</p>";
+}else
+{
+
+}
+
+?>
     <a href="./index.php">Return to HomePage</a>
   </body>
 </html>
