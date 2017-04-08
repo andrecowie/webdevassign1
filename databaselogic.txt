@@ -1,14 +1,9 @@
 CREATE TABLE status(
-  statusCode varchar2(10) NOT NULL UNIQUE,
-  status varchar2(10) NOT NULL,
-  date DATE,
-  share INT(),
-  PRIMARY KEY (statusCode)
-  )
-CREATE table permissions(
-  statusCode varchar2(10) NOT NULL UNIQUE,
-  like BIT(),
-  comment BIT(),
-  share BIT(),
-  FOREIGN KEY (statusCode) REFERENCES status(statusCode)
-)
+statusCode varchar(10),
+status varchar(40),
+data DATE,
+share int,
+likep BIT(1),
+commentp BIT(1),
+sharep BIT(1),
+PRIMARY KEY (statusCode));

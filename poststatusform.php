@@ -20,10 +20,10 @@
       <label for="date">Date: </label>
       <?php echo "<input type=\"date\" pattern=\"(0[1-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}\" name=\"date\" id=\"date\" value=\"".date('d/m/Y')."\"></input>"?>
       <br />
-      <label for="permissions">Permissions Type: </label>
-      <input type="checkbox" name="permissions[]" value="like" >Like
-      <input type="checkbox" name="permissions[]" value="comment" >Comment
-      <input type="checkbox" name="permissions[]" value="share" >Share
+      <label for="permission">Permissions Type: </label>
+      <input type="checkbox" id="permission" name="permission[]" value="like" >Like
+      <input type="checkbox" id="permission" name="permission[]" value="comment" >Comment
+      <input type="checkbox" id="permission" name="permission[]" value="share" >Share
       <br />
       <button type="submit">Submit</button>
       <button type="button">Reset</button>
