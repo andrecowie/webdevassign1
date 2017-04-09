@@ -10,15 +10,17 @@
       <input type="text" pattern="S{1}\d{4}" required name="statusCode" id="statusCode" />
       <br />
       <label for="status">Status (Required):</label>
-      <input type="text" required name="status" id="status" />
+      <input type="text" pattern="([a-zA-Z0-9]| |,|.|!|?)+" required name="status" id="status" />
       <br />
       <label for="share">Share: </label>
-      <input type="radio" name="share" value="public" id="public">Public
+      <input type="radio" name="share" checked value="public" id="public">Public
       <input type="radio" name="share" value="friends" id="friends">Friends
       <input type="radio" name="share" value="onlyme" id="onlyme">Only Me
       <br />
       <label for="date">Date: </label>
-      <?php echo "<input type=\"date\" pattern=\"(0[1-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}\" name=\"date\" id=\"date\" value=\"".date('d/m/Y')."\"></input>"?>
+      <?php 
+date_default_timezone_set( 'Pacific/Auckland' );
+echo "<input type=\"date\" pattern=\"(0[1-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}\" name=\"date\" id=\"date\" value=\"".date('d/m/Y')."\"></input>"?>
       <br />
       <label for="permission">Permissions Type: </label>
       <input type="checkbox" id="permission" name="permission[]" value="like" >Like

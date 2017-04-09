@@ -9,6 +9,9 @@
 	if($db ->connect_errno > 0 ){
 		die('Unable to connect to db :'. $db->connect_error .'.' );
 	}
+	if($db->query("CREATE TABLE IF NOT EXISTS status(statusCode varchar(10),status varchar(40),data DATE,share int,likep BIT(1),commentp BIT(1), sharep BIT(1),PRIMARY KEY (statusCode))")){
+	
+	}
 	if ( strcmp( $_POST[ 'share' ], "public") == 0 )
 	{	
 		$share = 0;
@@ -20,7 +23,7 @@
 		$share = 2;
 	}
 	$sql = "INSERT INTO status(statusCode, status, date, share"; 
-	$sqll = ") VALUES ('". $_POST['statusCode' ]."','". $_POST[ 'status' ]."','".date( "Y-m-d", strtotime( $_POST[ 'date' ])) ."',".$share."";	
+	$sqll = ") VALUES ('". $_POST['statusCode' ]."','". $_POST[ 'status' ]."','".date( "Y-d-m", strtotime( $_POST[ 'date' ])) ."',".$share."";	
 	if( !empty($_POST[ 'permission' ])){
 		if (in_array("like", $_POST[ 'permission'])){
 			$sql = $sql . ", likep";
@@ -48,14 +51,15 @@
 	}
 	if( $result = $db->query($sql))
 	{
-		echo "<h3>New Status Stored.</h3><p>Status Code: ". $_POST['statusCode']."</p><p>Status: ".$_POST[ 'status' ].".<p>Date: ".$_POST[ 'date' ]."</p><p>Privacy: ".$_POST[ 'share' ]."</p><p>Permissions: ".implode(" ", $_POST[ 'permission' ])."</p><a href=\"./index.php\">Homepage</a>";
-		$result->free();
+		echo "<h3>New Status Stored.</h3><p>Status Code: ". $_POST['statusCode']."</p><p>Status: ".$_POST[ 'status' ]."<p>Date: ".$_POST[ 'date' ]."</p><p>Privacy: ".$_POST[ 'share' ]."</p><p>Permissions: ".implode(" ", $_POST[ 'permission' ])."</p>";
 	}else{
 		header("Location: poststatusform.php?err=1");
 		echo "Error ".$db->error; 
 	}
 	$db->close();
-    ?>
+?>
+<a href="./searchstatusform.php">Search for a Status</a>
+<a href="./poststatusform.php">Post Another Status</a>
     <a href="./index.php">Homepage</a>
   </body>
 </html>
