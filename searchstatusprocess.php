@@ -7,7 +7,8 @@
 <?php
 
 	date_default_timezone_set( 'Pacific/Auckland' );
-	$db = new mysqli('localhost', 'root', 'onetwo21', 'jpd3201');
+	require_once ("../../settings.php");
+	$db = new mysqli($host, $user, $pswd, $dbnm);
 	if($db ->connect_errno > 0 ){
 		die('Unable to connect to db :'. $db->connect_error .'.' );
 	}

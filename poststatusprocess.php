@@ -5,11 +5,12 @@
   </head>
   <body>
 <?php
-	$db = new mysqli('localhost', 'root', 'onetwo21', 'jpd3201');
+	require_once ("../../settings.php");
+	$db = new mysqli($host, $user, $pswd, $dbnm);
 	if($db ->connect_errno > 0 ){
 		die('Unable to connect to db :'. $db->connect_error .'.' );
 	}
-	if($db->query("CREATE TABLE IF NOT EXISTS status(statusCode varchar(10),status varchar(40),data DATE,share int,likep BIT(1),commentp BIT(1), sharep BIT(1),PRIMARY KEY (statusCode))")){
+	if($db->query("CREATE TABLE IF NOT EXISTS status(statusCode varchar(10),status varchar(40),date DATE,share int,likep BIT(1),commentp BIT(1), sharep BIT(1),PRIMARY KEY (statusCode))")){
 	
 	}
 	if ( strcmp( $_POST[ 'share' ], "public") == 0 )
@@ -47,14 +48,18 @@
 			$sql = $sql . ", sharep";
 			$sqll = $sqll . ", 0";
 		}
-		$sql = $sql . $sqll . ");";
+		
 	}
+	$sql = $sql . $sqll . ");";
+	echo $sql;
 	if( $result = $db->query($sql))
 	{
 		echo "<h3>New Status Stored.</h3><p>Status Code: ". $_POST['statusCode']."</p><p>Status: ".$_POST[ 'status' ]."<p>Date: ".$_POST[ 'date' ]."</p><p>Privacy: ".$_POST[ 'share' ]."</p><p>Permissions: ".implode(" ", $_POST[ 'permission' ])."</p>";
 	}else{
-		header("Location: poststatusform.php?err=1");
+		#header("Location: poststatusform.php?err=1");
 		echo "Error ".$db->error; 
+		echo "".$sql;
+		
 	}
 	$db->close();
 ?>

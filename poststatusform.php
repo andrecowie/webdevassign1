@@ -18,9 +18,10 @@
       <input type="radio" name="share" value="onlyme" id="onlyme">Only Me
       <br />
       <label for="date">Date: </label>
-      <?php 
-date_default_timezone_set( 'Pacific/Auckland' );
-echo "<input type=\"date\" pattern=\"(0[1-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}\" name=\"date\" id=\"date\" value=\"".date('d/m/Y')."\"></input>"?>
+     <?php 
+		date_default_timezone_set( 'Pacific/Auckland' );
+		echo "<input type=\"text\" pattern=\"(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{2}\" name=\"date\" id=\"date\" value=\"". date('d/m/y') ."\"></input>"
+	?>
       <br />
       <label for="permission">Permissions Type: </label>
       <input type="checkbox" id="permission" name="permission[]" value="like" >Like
