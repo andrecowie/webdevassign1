@@ -1,20 +1,31 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Status Posted.</title>
-  </head>
-  <body>
-<?php
-	require_once ("../../settings.php");
-	$db = new mysqli($host, $user, $pswd, $dbnm);
+
+<head>
+	<title>Status Posted.</title>
+	<link rel="stylesheet" type="text/css" href="./bootstrap.min.css">
+	<style>
+		th {
+			text-align: center;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container-fluid">
+		<div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3" style="text-align:center;">
+			<?php
+	# require_once ("../../settings.php");
+	#$db = new mysqli($host, $user, $pswd, $dbnm);
+	$db = new mysqli('localhost', 'root', 'onetwo21', 'jpd3201');
 	if($db ->connect_errno > 0 ){
 		die('Unable to connect to db :'. $db->connect_error .'.' );
 	}
 	if($db->query("CREATE TABLE IF NOT EXISTS status(statusCode varchar(10),status varchar(40),date DATE,share int,likep BIT(1),commentp BIT(1), sharep BIT(1),PRIMARY KEY (statusCode))")){
-	
+
 	}
 	if ( strcmp( $_POST[ 'share' ], "public") == 0 )
-	{	
+	{
 		$share = 0;
 	}else if ( strcmp( $_POST[ 'share' ], "friends" ) == 0 )
 	{
@@ -23,8 +34,8 @@
 	{
 		$share = 2;
 	}
-	$sql = "INSERT INTO status(statusCode, status, date, share"; 
-	$sqll = ") VALUES ('". $_POST['statusCode' ]."','". $_POST[ 'status' ]."','".date( "Y-d-m", strtotime( $_POST[ 'date' ])) ."',".$share."";	
+	$sql = "INSERT INTO status(statusCode, status, date, share";
+	$sqll = ") VALUES ('". $_POST['statusCode' ]."','". $_POST[ 'status' ]."','".date( "Y-d-m", strtotime( $_POST[ 'date' ])) ."',".$share."";
 	if( !empty($_POST[ 'permission' ])){
 		if (in_array("like", $_POST[ 'permission'])){
 			$sql = $sql . ", likep";
@@ -44,27 +55,41 @@
 			$sql = $sql . ", sharep";
 			$sqll = $sqll . ", 1";
 		}else{
-		
+
 			$sql = $sql . ", sharep";
 			$sqll = $sqll . ", 0";
 		}
-		
+
 	}
 	$sql = $sql . $sqll . ");";
-	echo $sql;
-	if( $result = $db->query($sql))
+	foreach($_POST[ 'permission' ] as &$value )
 	{
-		echo "<h3>New Status Stored.</h3><p>Status Code: ". $_POST['statusCode']."</p><p>Status: ".$_POST[ 'status' ]."<p>Date: ".$_POST[ 'date' ]."</p><p>Privacy: ".$_POST[ 'share' ]."</p><p>Permissions: ".implode(" ", $_POST[ 'permission' ])."</p>";
+		$value = ucfirst( $value );
+	}
+	if( $result = $db->query($sql))
+{
+	echo "<h3>New Status</h3><table class=\"table\"><tr style=\"text-align: center\"><th>Status Code</th><th>Status</th><th>Date</th><th>Privacy</th><th>Permissions</th></tr><tr><td> ". $_POST['statusCode']."</td><td>".$_POST[ 'status' ]."</td><td>".$_POST[ 'date' ]."</td><td>".ucfirst($_POST[ 'share' ])."</td><td>".implode(" ", $_POST[ 'permission' ])."</td></tr></table>";
 	}else{
-		#header("Location: poststatusform.php?err=1");
-		echo "Error ".$db->error; 
+		header("Location: poststatusform.php?err=1");
+		echo "Error ".$db->error;
 		echo "".$sql;
-		
+
 	}
 	$db->close();
 ?>
-<a href="./searchstatusform.php">Search for a Status</a>
-<a href="./poststatusform.php">Post Another Status</a>
-    <a href="./index.php">Homepage</a>
-  </body>
+		</div>
+		<div class="row">
+			<div class="col-lg-3 col-lg-offset-1">
+				<a href="./searchstatusform.php">Search for a Status</a>
+			</div>
+			<div class="col-lg-3 col-lg-offset-1">
+				<a href="./poststatusform.php">Post Another Status</a>
+			</div>
+			<div class="col-lg-3 col-lg-offset-1">
+				<a href="./index.php">Homepage</a>
+			</div>
+		</div>
+	</div>
+</body>
+
 </html>
