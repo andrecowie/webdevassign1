@@ -15,9 +15,8 @@
 	<div class="container-fluid">
 		<div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3" style="text-align:center;">
 			<?php
-	# require_once ("../../settings.php");
-	#$db = new mysqli($host, $user, $pswd, $dbnm);
-	$db = new mysqli('localhost', 'root', 'onetwo21', 'jpd3201');
+	require_once ("../../settings.php");
+	$db = new mysqli($host, $user, $pswd, $dbnm);
 	if($db ->connect_errno > 0 ){
 		die('Unable to connect to db :'. $db->connect_error .'.' );
 	}
@@ -35,7 +34,8 @@
 		$share = 2;
 	}
 	$sql = "INSERT INTO status(statusCode, status, date, share";
-	$sqll = ") VALUES ('". $_POST['statusCode' ]."','". $_POST[ 'status' ]."','".date( "Y-d-m", strtotime( $_POST[ 'date' ])) ."',".$share."";
+	list($dd, $mm, $yy) = explode('/', $_POST['date']);
+	$sqll = ") VALUES ('". $_POST['statusCode' ]."','". $_POST[ 'status' ]."','".date( "Y-m-d", strtotime($mm.'/'.$dd.'/20'.$yy)) ."',".$share."";
 	if( !empty($_POST[ 'permission' ])){
 		if (in_array("like", $_POST[ 'permission'])){
 			$sql = $sql . ", likep";
@@ -66,9 +66,11 @@
 	{
 		$value = ucfirst( $value );
 	}
-	if( $result = $db->query($sql))
-{
-	echo "<h3>New Status</h3><table class=\"table\"><tr style=\"text-align: center\"><th>Status Code</th><th>Status</th><th>Date</th><th>Privacy</th><th>Permissions</th></tr><tr><td> ". $_POST['statusCode']."</td><td>".$_POST[ 'status' ]."</td><td>".$_POST[ 'date' ]."</td><td>".ucfirst($_POST[ 'share' ])."</td><td>".implode(" ", $_POST[ 'permission' ])."</td></tr></table>";
+	if( $result = $db->query($sql)){
+		echo $dd.'/'.$mm.'/20'.$yy.'<br>';
+		echo $sql;
+		
+		echo "<h3>New Status</h3><table class=\"table\"><tr style=\"text-align: center\"><th>Status Code</th><th>Status</th><th>Date</th><th>Privacy</th><th>Permissions</th></tr><tr><td> ". $_POST['statusCode']."</td><td>".$_POST[ 'status' ]."</td><td>".$_POST[ 'date' ]."</td><td>".ucfirst($_POST[ 'share' ])."</td><td>".implode(" ", $_POST[ 'permission' ])."</td></tr></table>";
 	}else{
 		header("Location: poststatusform.php?err=1");
 		echo "Error ".$db->error;
