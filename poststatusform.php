@@ -30,9 +30,9 @@
 				<div class="form-group">
 					<label for="date">Date: </label>
 					<?php
-		date_default_timezone_set( 'Pacific/Auckland' );
-		echo "<input class=\"form-control\" type=\"text\" pattern=\"(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{2}\" name=\"date\" id=\"date\" value=\"". date('d/m/y') ."\"></input>"
-	?>
+        date_default_timezone_set('Pacific/Auckland');
+        echo "<input class=\"form-control\" type=\"text\" pattern=\"(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{2}\" name=\"date\" id=\"date\" value=\"". date('d/m/y') ."\"></input>"
+    ?>
 				</div>
 				<div class="form-group">
 					<label for="permission">Permissions Type: </label>
@@ -46,13 +46,11 @@
 				<input class="btn btn-warning" onClick="window.location.reload()" type="reset"></input>
 			</form>
 			<?php
-$error_id = isset( $_GET[ 'err' ]) ? (int)$_GET['err'] : 0;
-if ($error_id == 1)
-{
-	echo "<p style=\"color: red;\" >It seems that status code is already in use try another!</p>";
-}else
-{
-
+$error_id = isset($_GET[ 'err' ]) ? (int)$_GET['err'] : 0;
+if ($error_id == 1) {
+    echo "<p style=\"color: red;\" >It seems that status code is already in use try another!</p>";
+} else {
+	
 }
 
 ?>
